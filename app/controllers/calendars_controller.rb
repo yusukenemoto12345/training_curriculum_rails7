@@ -7,11 +7,20 @@ class CalendarsController < ApplicationController
   end
 
   # 予定の保存
+  def new
+    @event = Event.new
+  end
+
+  def new
+    @event = Event.new
+  end
+  
   def create
+    binding.pry
     Plan.create(plan_params)
     redirect_to action: :index
   end
-
+  
   private
 
   def plan_params
