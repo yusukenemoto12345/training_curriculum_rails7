@@ -2,17 +2,18 @@ class CalendarsController < ApplicationController
 
   # １週間のカレンダーと予定が表示されるページ
   def index
-    get_week
-    @plan = Plan.new
     @weekdays = ['(日)','(月)','(火)','(水)','(木)','(金)','(土)']
+    get_week  # ここでget_weekメソッドを呼び出す
+    @plan = Plan.new
   end
 
   # 予定の保存
   def create
     @plan = Plan.new(plan_params)  # 新しいPlanオブジェクトを作成し、パラメータを渡す
 
+    get_week  # 予定の保存より前にget_weekメソッドを呼び出す
+
     if @plan.save  # 予定を保存し、保存が成功した場合に処理を続行
-      getWeek  # @week_days を再度設定する
       redirect_to action: :index
     else
       render :index  # 保存に失敗した場合はindexアクションを再度表示
@@ -44,5 +45,3 @@ class CalendarsController < ApplicationController
     end
   end
 end
-
-
